@@ -23,6 +23,7 @@ struct HomeView: View {
                 FilterView(options: filters, selection: $selectedFilter)
                     .background(Divider(), alignment: .bottom)
                 
+                CardView()
                 
                 Spacer()
             }
