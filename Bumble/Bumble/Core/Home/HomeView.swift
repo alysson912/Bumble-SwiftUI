@@ -9,10 +9,13 @@ import SwiftUI
 
 struct HomeView: View {
 
-    @State private var filters: [String] = ["Everyone", "Trending"]
-    @AppStorage("home_filter") private var selectedFilter = "Everyone"
-    /*Salvando ultimo estado em que o app se encontrava, caso feche o app e a opcao: Everyone ou Trending tenha sido selecionada ao abrir ele retornará ao ultimo estado */
+    @State var allUsers: [User] = []
+    @State var selectedIndex: Int = 0
     
+    @State  var filters: [String] = ["Everyone", "Trending"]
+    @AppStorage("home_filter")  var selectedFilter = "Everyone"
+    /*Salvando ultimo estado em que o app se encontrava, caso feche o app e a opcao: Everyone ou Trending tenha sido selecionada ao abrir ele retornará ao ultimo estado */
+
     var body: some View {
         ZStack {
             Color.bumbleBackgroundYellow.ignoresSafeArea()
@@ -23,14 +26,42 @@ struct HomeView: View {
                 FilterView(options: filters, selection: $selectedFilter)
                     .background(Divider(), alignment: .bottom)
                 
-                CardView()
-                
-                Spacer()
+                //CardView()
+                VStack {
+                    if !allUsers.isEmpty {
+                        ForEach(Array(allUsers.enumerated()), id: \.offset) { (index, user) in
+                            Rectangle()
+                            .fill(Color.red)
+                            .overlay (
+                                Text("\(index)")
+                            )
+                        }
+                        
+                    } else {
+                        ProgressView()
+                    }
+                    
+                }
+                .frame(maxHeight: .infinity)
+              
             }
             .padding(8)
         }
+        .task {
+            await getData()
+        }
+        .toolbar(.hidden, for: .navigationBar)
     }
-    
+
+    func getData() async {
+       guard allUsers.isEmpty else { return }
+       
+       do {
+           allUsers = try await DatabaseHelper().getUsers()
+       } catch {
+           
+       }
+   }
     
     private var header: some View {
         HStack (spacing: 0) {
