@@ -26,6 +26,9 @@ struct CardView: View {
                 //                headerCell
                 //                    .frame(height: cardFrame.height)
                 
+                headerCell
+                .frame(height: cardFrame.height)
+                
                 aboutSection
                     .padding(.horizontal, 24)
                     .padding(.vertical, 24)

@@ -145,6 +145,7 @@ struct HomeView: View {
             onHideAndReportPressed: {
                 
             })
+        
         .withDragGesture(
             .horizontal,
             minimumDistance: 10,
