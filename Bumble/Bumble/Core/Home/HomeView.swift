@@ -30,7 +30,7 @@ struct HomeView: View {
                 FilterView(options: filters, selection: $selectedFilter)
                     .background(Divider(), alignment: .bottom)
                 
-                //CardView()
+   
                 ZStack {
                     if !allUsers.isEmpty {
                         ForEach(Array(allUsers.enumerated()), id: \.offset) { (index, user) in
@@ -131,6 +131,7 @@ struct HomeView: View {
         .fontWeight(.medium)
         .foregroundStyle(.bumbleBlack)
     }
+    
     private func userProfileCell(user: User, index: Int) -> some View {
         CardView(
             user: user,
@@ -144,7 +145,8 @@ struct HomeView: View {
             },
             onHideAndReportPressed: {
                 
-            })
+            }
+        )
         
         .withDragGesture(
             .horizontal,

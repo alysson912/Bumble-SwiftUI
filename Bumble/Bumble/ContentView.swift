@@ -12,19 +12,19 @@ import SwiftfulRouting
 
 struct ContentView: View {
     
-    @Environment(\.router) var router
+//    @Environment(\.router) var router
     
     
     var body: some View {
-        List {
-          //  Button("Open Spotify") {
-              //  router.showScreen(.fullScreenCover){ router in
-               //     HomeView(viewModel: HomeViewModel(router: router))
-            HomeView()
-                }
-            }
-        }
         
+           
+
+                    HomeView()
+                
+            
+        }
+    }
+
 
 
 
